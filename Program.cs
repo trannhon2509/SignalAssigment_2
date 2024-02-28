@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SignalAssigment_2.Data;
+
 namespace SignalAssigment_2
 {
     public class Program
@@ -8,6 +11,10 @@ namespace SignalAssigment_2
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            // Register database
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
