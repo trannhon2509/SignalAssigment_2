@@ -23,17 +23,19 @@
                             <h1 class="h1-title">
                                 Sign In
                             </h1>
-                            <form action="#" class="newsletter-form">
+                            <form method="post" class="newsletter-form">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
-                                    <input type="email" class="form-input"
+                                    <input type="text" class="form-input"
                                            placeholder="Enter username here" required>
+                                           <span class="text-danger" asp-validation-for="account.UserName"></span>
                                 </div>
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-4">
-                                    <input type="email" class="form-input"
+                                    <input type="password" class="form-input"
                                            placeholder="Enter password here" required>
+                                           <span class="text-danger" asp-validation-for="account.Password"></span>
                                 </div>
 
                                 <!-- 2 column grid layout for inline styling -->
@@ -54,7 +56,7 @@
                                 </div>
 
                                 <div class="col d-flex justify-content-center" style="position: absolute">
-                                    <button type="submit" class="sec-btn btn-primary" style="left:10px; top:20px">Login</button>
+                                    <button type="submit" class="sec-btn btn-primary" style="left:10px; top:20px" value="Login">Login</button>
                                     <button type="submit" class="sec-btn btn-primary" style="left:200px; top:20px">Register</button>
                                 </div>
 

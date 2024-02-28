@@ -5,9 +5,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 style="margin-top:100px" class="h1-title">Create</h1>
 
-<h4>Product</h4>
+<h4 class="h4-title">Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,42 +15,41 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Product.ProductName" class="control-label"></label>
-                <input asp-for="Product.ProductName" class="form-control" />
+                <input asp-for="Product.ProductName" class="form-input" />
                 <span asp-validation-for="Product.ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.SupplierID" class="control-label"></label>
-                <select asp-for="Product.SupplierID" class ="form-control" asp-items="ViewBag.SupplierID"></select>
+                <select asp-for="Product.SupplierID" class ="form-input" asp-items="ViewBag.SupplierID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Product.CategoryID" class="control-label"></label>
-                <select asp-for="Product.CategoryID" class ="form-control" asp-items="ViewBag.CategoryID"></select>
+                <select asp-for="Product.CategoryID" class ="form-input" asp-items="ViewBag.CategoryID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Product.QuantityPerUnit" class="control-label"></label>
-                <input asp-for="Product.QuantityPerUnit" class="form-control" />
+                <input asp-for="Product.QuantityPerUnit" class="form-input" />
                 <span asp-validation-for="Product.QuantityPerUnit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.UnitPrice" class="control-label"></label>
-                <input asp-for="Product.UnitPrice" class="form-control" />
+                <input asp-for="Product.UnitPrice" class="form-input" />
                 <span asp-validation-for="Product.UnitPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.ProductImage" class="control-label"></label>
-                <input asp-for="Product.ProductImage" class="form-control" />
+                <input asp-for="Product.ProductImage" class="form-input" />
                 <span asp-validation-for="Product.ProductImage" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="sec-btn primary-btn" />  |
+                <a asp-page="Index" class="sec-sub-title">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
