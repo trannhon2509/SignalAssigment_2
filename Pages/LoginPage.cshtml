@@ -1,0 +1,77 @@
+﻿@page
+@model SignalAssigment_2.Pages.LoginPageModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div id="viewport">
+
+    <section class="main-banner" id="home">
+        <div class="js-parallax-scene">
+            <div class="banner-shape-1 w-100" data-depth="0.30">
+                <img src="~/assets/images/berry.png" alt="">
+            </div>
+            <div class="banner-shape-2 w-100" data-depth="0.25">
+                <img src="~/assets/images/leaf.png" alt="">
+            </div>
+        </div>
+        <div class="sec-wp">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="banner-text">
+                            <h1 class="h1-title">
+                                Sign In
+                            </h1>
+                            <form action="#" class="newsletter-form">
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input type="email" class="form-input"
+                                           placeholder="Enter username here" required>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input type="email" class="form-input"
+                                           placeholder="Enter password here" required>
+                                </div>
+
+                                <!-- 2 column grid layout for inline styling -->
+                                <div class="row mb-4">
+                                    <div class="col d-flex justify-content-center">
+                                        <!-- Checkbox -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                            <label class="form-check-label" for="form2Example31"> Remember me </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <!-- Simple link -->
+                                        <a href="#!">Forgot password?</a>
+                                    </div>
+
+                                </div>
+
+                                <div class="col d-flex justify-content-center" style="position: absolute">
+                                    <button type="submit" class="sec-btn btn-primary" style="left:10px; top:20px">Login</button>
+                                    <button type="submit" class="sec-btn btn-primary" style="left:200px; top:20px">Register</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-img-wp">
+                            <div class="banner-img" style="background-image: url(https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/4992642/1820/1213/m1/fpnw/wm1/sa1ykwpemkrsqyttqo41135tz4sm9nql5azmj5nojrlm3vlwelmutgsu47znuz1m-.jpg?1535971105&s=def039ac34bc97782a9529f2aa93f028);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
