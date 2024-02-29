@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalAssigment_2.Data;
 using SignalAssigment_2.Model;
 
-namespace SignalAssigment_2.Pages.Product_Page
+namespace SignalAssigment_2.Pages.Product_page
 {
     public class IndexModel : PageModel
     {
@@ -23,9 +23,16 @@ namespace SignalAssigment_2.Pages.Product_Page
 
         public async Task OnGetAsync()
         {
+            Product = await _context.Products.ToListAsync();
+            
+        }
+        public async Task OnPostAsync()
+        {
+            // Handle POST request for search
+            var searchId = Request.Form["id"];
             Product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier).ToListAsync();
+                .Where(p => p.ProductName.Contains(searchId)  )
+                .ToListAsync();
         }
     }
 }

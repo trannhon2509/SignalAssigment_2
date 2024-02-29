@@ -1,11 +1,11 @@
 ﻿@page
-@model SignalAssigment_2.Pages.Product_Page.DetailsModel
+@model SignalAssigment_2.Pages.Product_page.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1 class="h1-title">Details</h1>
+<h1 style="margin-top:100px" class="h1-title">Details</h1>
 
 <div>
     <h4 class="h4-title">Product</h4>
@@ -16,6 +16,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.ProductName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.SupplierID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.SupplierID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.CategoryID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.CategoryID)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.QuantityPerUnit)
@@ -35,21 +47,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.ProductImage)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Supplier)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Supplier.Address)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Category.CategoryName)
-        </dd>
     </dl>
 </div>
-<div class="mt-3">
+<div>
     <a asp-page="./Edit" asp-route-id="@Model.Product.ProductID" class="sec-btn primary-btn">Edit</a> |
-    <a asp-page="./Index" class="sec-sub-title">Back to List</a>
+    <a asp-page="./Index" class="sec-btn">Back to List</a>
 </div>

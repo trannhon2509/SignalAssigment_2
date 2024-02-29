@@ -23,7 +23,7 @@ namespace SignalAssigment_2.Pages.Account_Page
         [BindProperty]
         public Account Account { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -69,7 +69,7 @@ namespace SignalAssigment_2.Pages.Account_Page
             return RedirectToPage("./Index");
         }
 
-        private bool AccountExists(Guid id)
+        private bool AccountExists(int id)
         {
             return _context.Accounts.Any(e => e.AccountID == id);
         }

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@{
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,6 +38,12 @@
                                 <li><a asp-area="" asp-page="/About">About</a></li>
                                 <li><a asp-area="" asp-page="/Menu">Menu</a></li>
                                 <li><a asp-area="" asp-page="/Blog">Blog</a></li>
+                                
+                                    <li><a asp-area="" asp-page="/Account_Page/Index">Account</a></li>
+                                    <li><a asp-area="" asp-page="/Product_Page/Index">Product</a></li>
+                                    <li><a asp-area="" asp-page="/Order_Page/Index">Order</a></li>
+                                
+                                
                             </ul>
                         </nav>
                         <div class="header-right">
@@ -49,7 +57,7 @@
                                 <i class="uil uil-shopping-bag"></i>
                                 <span class="cart-number">3</span>
                             </a>
-                            <a href="javascript:void(0)" class="header-btn">
+                            <a asp-page="/LoginPage" class="header-btn">
                                 <i class="uil uil-user-md"></i>
                             </a>
                         </div>

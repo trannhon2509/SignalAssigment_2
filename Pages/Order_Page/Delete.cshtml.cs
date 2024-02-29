@@ -22,7 +22,7 @@ namespace SignalAssigment_2.Pages.Order_Page
         [BindProperty]
         public Order Order { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -42,7 +42,7 @@ namespace SignalAssigment_2.Pages.Order_Page
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {

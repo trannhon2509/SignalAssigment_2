@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SignalAssigment_2.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class FirstInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace SignalAssigment_2.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    AccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AccountID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "varchar(100)", nullable: false),
                     Password = table.Column<string>(type: "varchar(20)", nullable: false),
                     FullName = table.Column<string>(type: "varchar(100)", nullable: false),
@@ -30,7 +31,8 @@ namespace SignalAssigment_2.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", nullable: true)
                 },
@@ -43,7 +45,8 @@ namespace SignalAssigment_2.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Password = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     ContactName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", nullable: false),
@@ -55,10 +58,29 @@ namespace SignalAssigment_2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    QuantityPerUnit = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProductImage = table.Column<string>(type: "nvarchar(300)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
-                    SupplierID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", nullable: false)
@@ -72,11 +94,12 @@ namespace SignalAssigment_2.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Freight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShipAddress = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
@@ -92,47 +115,19 @@ namespace SignalAssigment_2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    SupplierID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    QuantityPerUnit = table.Column<string>(type: "nvarchar(20)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProductImage = table.Column<string>(type: "nvarchar(300)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryID",
-                        column: x => x.CategoryID,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Suppliers_SupplierID",
-                        column: x => x.SupplierID,
-                        principalTable: "Suppliers",
-                        principalColumn: "SupplierID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    OrderID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderDetailID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderDetailID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetails", x => new { x.OrderID, x.ProductID });
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailID);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders_OrderID",
                         column: x => x.OrderID,
@@ -148,6 +143,11 @@ namespace SignalAssigment_2.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderID",
+                table: "OrderDetails",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductID",
                 table: "OrderDetails",
                 column: "ProductID");
@@ -156,16 +156,6 @@ namespace SignalAssigment_2.Migrations
                 name: "IX_Orders_CustomerID",
                 table: "Orders",
                 column: "CustomerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryID",
-                table: "Products",
-                column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_SupplierID",
-                table: "Products",
-                column: "SupplierID");
         }
 
         /// <inheritdoc />
@@ -175,7 +165,13 @@ namespace SignalAssigment_2.Migrations
                 name: "Accounts");
 
             migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "Orders");
@@ -185,12 +181,6 @@ namespace SignalAssigment_2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Suppliers");
         }
     }
 }

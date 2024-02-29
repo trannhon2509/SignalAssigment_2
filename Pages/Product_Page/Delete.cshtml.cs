@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalAssigment_2.Data;
 using SignalAssigment_2.Model;
 
-namespace SignalAssigment_2.Pages.Product_Page
+namespace SignalAssigment_2.Pages.Product_page
 {
     public class DeleteModel : PageModel
     {
@@ -22,7 +22,7 @@ namespace SignalAssigment_2.Pages.Product_Page
         [BindProperty]
         public Product Product { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -42,7 +42,7 @@ namespace SignalAssigment_2.Pages.Product_Page
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {

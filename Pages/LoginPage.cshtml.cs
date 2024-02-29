@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SignalAssigment_2.Model;
 using System.Security.Claims;
 
@@ -8,33 +9,34 @@ namespace SignalAssigment_2.Pages
 {
     public class LoginPageModel : PageModel
     {
-        [BindProperty]
-        public Account account { get; set; }
+        private readonly SignalAssigment_2.Data.ApplicationContext _context;
 
+        public LoginPageModel(SignalAssigment_2.Data.ApplicationContext context)
+        {
+            _context = context;
+        }
+        public IList<Account> account { get; set; } = default!;
         public void OnGet()
         {
 
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
-            // Verify
-            if(account.UserName == "admin" && account.Password == "admin")
+            account = await _context.Accounts.ToListAsync();
+            foreach (var item in account)
             {
-                // Create the security context
-                var claims = new List<Claim>
+                if(string.Equals(item.UserName, Request.Form["username"]) && string.Equals(item.Password, Request.Form["password"]))
                 {
-                    new Claim(ClaimTypes.Name, "admin"),
-                    new  Claim(ClaimTypes.Email, "admin")
-                };
-                var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-                await HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
-
-                return RedirectToPage("/Index");
+                    if(item.Type == 1){
+                        return RedirectToPage("/Index");
+                    } else
+                    {
+                        return Page();
+                    }
+                    
+                }
             }
+
             return Page();
         }
     }

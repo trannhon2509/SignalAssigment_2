@@ -5,17 +5,23 @@ namespace SignalAssigment_2.Model
 {
     public class Category
     {
+        // Primary key for the database with identity specification
         [Key]
-        [Required]
-        public Guid CategoryID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required(ErrorMessage = "Category ID is required.")]
+        [Display(Name = "Category ID")]
+        public int CategoryID { get; set; }
 
-        [Required(ErrorMessage = "CategoryName is required!")]
+        // CategoryName property with required validation and maximum length
+        [Required(ErrorMessage = "Category Name is required!")]
         [MaxLength(50)]
+        [Display(Name = "Category Name")]
         public string CategoryName { get; set; }
+
+        // Description property with column type specification and display format for null values
         [Column(TypeName = "nvarchar(250)")]
         [DisplayFormat(NullDisplayText = "No description.")]
+        [Display(Name = "Description")]
         public string? Description { get; set; }
-
-        ICollection<Product> Products { get; set; }
     }
 }

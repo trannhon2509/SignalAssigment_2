@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalAssigment_2.Data;
 using SignalAssigment_2.Model;
 
-namespace SignalAssigment_2.Pages.Product_Page
+namespace SignalAssigment_2.Pages.Product_page
 {
     public class EditModel : PageModel
     {
@@ -23,7 +23,7 @@ namespace SignalAssigment_2.Pages.Product_Page
         [BindProperty]
         public Product Product { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -36,8 +36,6 @@ namespace SignalAssigment_2.Pages.Product_Page
                 return NotFound();
             }
             Product = product;
-           ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
-           ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "Address");
             return Page();
         }
 
@@ -71,7 +69,7 @@ namespace SignalAssigment_2.Pages.Product_Page
             return RedirectToPage("./Index");
         }
 
-        private bool ProductExists(Guid id)
+        private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductID == id);
         }

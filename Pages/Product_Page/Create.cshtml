@@ -1,5 +1,5 @@
 ﻿@page
-@model SignalAssigment_2.Pages.Product_Page.CreateModel
+@model SignalAssigment_2.Pages.Product_page.CreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -20,11 +20,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Product.SupplierID" class="control-label"></label>
-                <select asp-for="Product.SupplierID" class ="form-input" asp-items="ViewBag.SupplierID"></select>
+                <input asp-for="Product.SupplierID" class="form-input" />
+                <span asp-validation-for="Product.SupplierID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.CategoryID" class="control-label"></label>
-                <select asp-for="Product.CategoryID" class ="form-input" asp-items="ViewBag.CategoryID"></select>
+                <input asp-for="Product.CategoryID" class="form-input" />
+                <span asp-validation-for="Product.CategoryID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.QuantityPerUnit" class="control-label"></label>
@@ -43,12 +45,11 @@
             </div>
             <div class="form-group mt-3">
                 <input type="submit" value="Create" class="sec-btn primary-btn" />  |
-                <a asp-page="Index" class="sec-sub-title">Back to List</a>
+                <a asp-page="Index" class="sec-btn">Back to List</a>
             </div>
         </form>
     </div>
 </div>
-
 
 
 @section Scripts {

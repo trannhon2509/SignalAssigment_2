@@ -1,5 +1,5 @@
 ﻿@page
-@model SignalAssigment_2.Pages.Product_Page.IndexModel
+@model SignalAssigment_2.Pages.Product_page.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,14 +7,26 @@
 
 <h1 style="margin-top:100px" class="h1-title">Index</h1>
 
-<p>
+<p >
     <a asp-page="Create" class="sec-btn primary-btn">Create New</a>
+    <form method="post" class="newsletter-form">
+        <input type="text" class="form-input"
+               placeholder="Enter your product name" required name="id">
+        <button type="submit" class="sec-btn primary-btn">Submit</button>
+    </form>
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].SupplierID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CategoryID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].QuantityPerUnit)
@@ -25,35 +37,40 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].ProductImage)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Supplier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Category)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Product) {
+@foreach (var item in Model.Product ) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+                @Html.DisplayFor(modelItem => item.SupplierID)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+               
+                    @if (string.Equals(item.QuantityPerUnit, "0"))
+                    {
+                        <p>Hết hàng</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+                    }
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
+                
+                    
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ProductID" class="sec-sub-title">Edit</a> |

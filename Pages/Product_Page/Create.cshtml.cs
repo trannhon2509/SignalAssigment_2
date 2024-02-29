@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SignalAssigment_2.Data;
 using SignalAssigment_2.Model;
 
-namespace SignalAssigment_2.Pages.Product_Page
+namespace SignalAssigment_2.Pages.Product_page
 {
     public class CreateModel : PageModel
     {
@@ -21,8 +21,6 @@ namespace SignalAssigment_2.Pages.Product_Page
 
         public IActionResult OnGet()
         {
-        ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
-        ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "Address");
             return Page();
         }
 

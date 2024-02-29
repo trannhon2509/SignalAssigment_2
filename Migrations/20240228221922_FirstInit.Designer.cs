@@ -12,8 +12,8 @@ using SignalAssigment_2.Data;
 namespace SignalAssigment_2.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240228160119_InitMigration")]
-    partial class InitMigration
+    [Migration("20240228221922_FirstInit")]
+    partial class FirstInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,11 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.Account", b =>
                 {
-                    b.Property<Guid>("AccountID")
+                    b.Property<int>("AccountID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountID"));
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -53,9 +55,11 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.Category", b =>
                 {
-                    b.Property<Guid>("CategoryID")
+                    b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -72,9 +76,11 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.Customer", b =>
                 {
-                    b.Property<Guid>("CustomerID")
+                    b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -100,12 +106,14 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.Order", b =>
                 {
-                    b.Property<Guid>("OrderID")
+                    b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CustomerID")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Freight")
                         .HasColumnType("decimal(18,2)");
@@ -114,6 +122,7 @@ namespace SignalAssigment_2.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("RequiredDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShipAddress")
@@ -121,6 +130,7 @@ namespace SignalAssigment_2.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("ShippedDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("OrderID");
@@ -132,14 +142,17 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.OrderDetail", b =>
                 {
-                    b.Property<Guid>("OrderID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OrderDetailID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ProductID")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
 
-                    b.Property<Guid>("OrderDetailID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -147,7 +160,9 @@ namespace SignalAssigment_2.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("OrderID", "ProductID");
+                    b.HasKey("OrderDetailID");
+
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 
@@ -156,12 +171,14 @@ namespace SignalAssigment_2.Migrations
 
             modelBuilder.Entity("SignalAssigment_2.Model.Product", b =>
                 {
-                    b.Property<Guid>("ProductID")
+                    b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CategoryID")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductImage")
                         .HasColumnType("nvarchar(300)");
@@ -174,26 +191,24 @@ namespace SignalAssigment_2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("SupplierID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID");
-
-                    b.HasIndex("SupplierID");
-
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("SignalAssigment_2.Model.Supplier", b =>
                 {
-                    b.Property<Guid>("SupplierID")
+                    b.Property<int>("SupplierID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -215,7 +230,7 @@ namespace SignalAssigment_2.Migrations
             modelBuilder.Entity("SignalAssigment_2.Model.Order", b =>
                 {
                     b.HasOne("SignalAssigment_2.Model.Customer", "Customer")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -226,13 +241,13 @@ namespace SignalAssigment_2.Migrations
             modelBuilder.Entity("SignalAssigment_2.Model.OrderDetail", b =>
                 {
                     b.HasOne("SignalAssigment_2.Model.Order", "Order")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SignalAssigment_2.Model.Product", "Product")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,40 +255,6 @@ namespace SignalAssigment_2.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SignalAssigment_2.Model.Product", b =>
-                {
-                    b.HasOne("SignalAssigment_2.Model.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SignalAssigment_2.Model.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("SignalAssigment_2.Model.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("SignalAssigment_2.Model.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("SignalAssigment_2.Model.Product", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

@@ -20,21 +20,8 @@ namespace SignalAssigment_2.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderDetail>().HasNoKey();
 
-            modelBuilder.Entity<OrderDetail>()
-                .HasKey(od => new { od.OrderID, od.ProductID });
-
-            modelBuilder.Entity<OrderDetail>()
-                .HasOne(od => od.Order)
-                .WithMany(o => o.OrderDetails)
-                .HasForeignKey(od => od.OrderID);
-
-            modelBuilder.Entity<OrderDetail>()
-                .HasOne(od => od.Product)
-                .WithMany(p => p.OrderDetails)
-                .HasForeignKey(od => od.ProductID);
-
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
